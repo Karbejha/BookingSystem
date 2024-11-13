@@ -1,0 +1,25 @@
+<header>
+  <div class="logo">
+    <a href="/">
+      <img src="logo.png" alt="logo">
+    </a>
+  </div>
+  <button class="menu-toggle" (click)="toggleMenu()">☰</button>
+  <nav [class.active]="isMenuOpen">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+      <ng-container *ngIf="(isAuthenticated$ | async) === false; else loggedIn">
+        <li><a href="/signup" class="signup">Sign up</a></li>
+        <li><a href="/login" class="login">Login</a></li>
+      </ng-container>
+      <ng-template #loggedIn>
+        <li><button (click)="Dashboard()" class="Dashboard">Dashboard</button></li>
+        <li><button (click)="logout()" class="logout">Logout</button></li>
+        <li *ngIf="isAdmin$ | async"><a href="/admin">Admin Panel</a></li>
+      </ng-template>
+    </ul>
+  </nav>
+</header>

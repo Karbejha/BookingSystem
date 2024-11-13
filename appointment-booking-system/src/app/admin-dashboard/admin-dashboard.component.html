@@ -1,0 +1,148 @@
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="dashboard">
+  <aside class="sidebar">
+    <div class="logo">
+      <img src="admin.png" alt="Admin Logo">
+      <h2>Admin Panel</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a (click)="setActiveTab('overview')" [class.active]="activeTab === 'overview'">
+          <i class="fas fa-tachometer-alt" aria-hidden="true"></i> Overview
+        </a></li>
+        <li><a (click)="setActiveTab('users')" [class.active]="activeTab === 'users'">
+          <i class="fas fa-users" aria-hidden="true"></i> Users
+        </a></li>
+        <li><a (click)="setActiveTab('appointments')" [class.active]="activeTab === 'appointments'">
+          <i class="fas fa-calendar-alt" aria-hidden="true"></i> Appointments
+        </a></li>
+        <li><a (click)="setActiveTab('settings')" [class.active]="activeTab === 'settings'">
+          <i class="fas fa-cog" aria-hidden="true"></i> Settings
+        </a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main class="content" id="main-content">
+    <header>
+      <div class="search-bar">
+        <input type="text" placeholder="Search...">
+              <button type="button" aria-label="Search">
+                <img src="search-icon.png" alt="Search">
+              </button>
+              <i class="fas fa-search" aria-hidden="true"></i>
+      </div>
+      <div class="user-menu">
+        <img src="admin2.png" alt="Admin Avatar">
+        <span>Admin Name</span>
+        <button type="button" (click)="logout()">
+          <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
+        </button>
+      </div>
+    </header>
+
+    <section class="main-content">
+      <div *ngIf="activeTab === 'overview'" class="tab-content">
+        <h2>Overview</h2>
+        <div class="dashboard-cards">
+          <div class="card">
+            <i class="fas fa-users" aria-hidden="true"></i>
+            <h3>Total Users</h3>
+            <p>{{totalUsers}}</p>
+          </div>
+          <div class="card">
+            <i class="fas fa-calendar-check" aria-hidden="true"></i>
+            <h3>Total Appointments</h3>
+            <p>{{totalAppointments}}</p>
+          </div>
+          <div class="card">
+            <i class="fas fa-chart-line" aria-hidden="true"></i>
+            <h3>Monthly Growth</h3>
+            <p>{{monthlyGrowth}}%</p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="activeTab === 'users'" class="tab-content">
+        <h2>Users</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Joined Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+              <td>{{user.joinedDate}}</td>
+              <td>
+                <button type="button" class="btn-edit" aria-label="Edit user">
+                  <i class="fas fa-edit" aria-hidden="true"></i>
+                </button>
+                <button type="button" class="btn-delete" aria-label="Delete user">
+                  <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="activeTab === 'appointments'" class="tab-content">
+        <h2>Appointments</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Time</th>
+              <th>User</th>
+              <th>Service</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let appointment of appointments">
+              <td>{{appointment.date}}</td>
+              <td>{{appointment.time}}</td>
+              <td>{{appointment.user}}</td>
+              <td>{{appointment.service}}</td>
+              <td>
+                <span [class]="'status-' + appointment.status.toLowerCase()">
+                  {{appointment.status}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="activeTab === 'settings'" class="tab-content">
+        <h2>Settings</h2>
+        <form (ngSubmit)="saveSettings()">
+          <div class="form-group">
+            <label for="siteName">Site Name</label>
+            <input type="text" id="siteName" [(ngModel)]="settings.siteName" name="siteName" required>
+          </div>
+          <div class="form-group">
+            <label for="siteEmail">Site Email</label>
+            <input type="email" id="siteEmail" [(ngModel)]="settings.siteEmail" name="siteEmail" required>
+          </div>
+          <div class="form-group">
+            <label for="timezone">Timezone</label>
+            <select id="timezone" [(ngModel)]="settings.timezone" name="timezone" required>
+              <option value="UTC">UTC</option>
+              <option value="EST">EST</option>
+              <option value="PST">PST</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-save">Save Settings</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</div>
