@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mohamad Karbejha\\Desktop\\appointment project\\appointment-API\\WebApplication1\\WebApplication1.csproj": {}
+    "C:\\Users\\Mohamad Karbejha\\Desktop\\Booking System\\BookingSystem\\appointment-API\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mohamad Karbejha\\Desktop\\appointment project\\appointment-API\\WebApplication1\\WebApplication1.csproj": {
+    "C:\\Users\\Mohamad Karbejha\\Desktop\\Booking System\\BookingSystem\\appointment-API\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mohamad Karbejha\\Desktop\\appointment project\\appointment-API\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "C:\\Users\\Mohamad Karbejha\\Desktop\\Booking System\\BookingSystem\\appointment-API\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "C:\\Users\\Mohamad Karbejha\\Desktop\\appointment project\\appointment-API\\WebApplication1\\WebApplication1.csproj",
+        "projectPath": "C:\\Users\\Mohamad Karbejha\\Desktop\\Booking System\\BookingSystem\\appointment-API\\WebApplication1\\WebApplication1.csproj",
         "packagesPath": "C:\\Users\\Mohamad Karbejha\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mohamad Karbejha\\Desktop\\appointment project\\appointment-API\\WebApplication1\\obj\\",
+        "outputPath": "C:\\Users\\Mohamad Karbejha\\Desktop\\Booking System\\BookingSystem\\appointment-API\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Mohamad Karbejha\\AppData\\Roaming\\NuGet\\NuGet.Config",
