@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/appointment-API/.vs
+/appointment-API/WebApplication1/.vs/WebApplication1/FileContentIndex/00e0eea2-c066-4dbe-aa68-1c0eb879d548.vsidx
+/appointment-API/WebApplication1/.vs/WebApplication1/FileContentIndex/0888867d-40ec-4866-bae6-476fad841850.vsidx
+/appointment-API/WebApplication1/.vs/WebApplication1/FileContentIndex/16d68efd-b10b-4f28-a412-67eecc8f0834.vsidx
+/appointment-API/WebApplication1/.vs/WebApplication1/FileContentIndex/3f7954f9-6530-4354-8b83-4790774e2aaf.vsidx
+/appointment-API/WebApplication1/.vs/WebApplication1/FileContentIndex/5e90805e-b43c-4b6b-bb99-d3748d9e5d56.vsidx
+/appointment-API/WebApplication1/.vs/WebApplication1/FileContentIndex/6e40366c-1423-4a85-83f6-5dbbf274d160.vsidx
+/appointment-API/WebApplication1/.vs/WebApplication1/FileContentIndex/825efc7d-caf0-4db2-b9c5-4a59e6bb285a.vsidx
+/appointment-API/WebApplication1/.vs/WebApplication1/FileContentIndex/da727312-fdac-4830-9168-33ac0350d9bf.vsidx
