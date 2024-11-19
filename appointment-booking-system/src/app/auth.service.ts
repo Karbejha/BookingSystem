@@ -101,10 +101,7 @@ export class AuthService {
     } catch (error) {
       throw new Error('Signup failed');
     }
-  }
-  
-  
-  
+  }  
 
   logout(): void {
     this.setAuthState(false, false);
