@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +16,9 @@ export class SignupComponent {
   username: string = '';
   email: string = '';
   password: string = '';
+errorMessage: any;
 
+  constructor(private authService: AuthService, private http:HttpClient) { }
   onInputChange(event: Event, field: string): void {
     const inputElement = event.target as HTMLInputElement;
     switch (field) {
@@ -31,7 +35,15 @@ export class SignupComponent {
   }
 
   signup(): void {
-    // Implement the sign-up logic here
-    console.log('User signed up with:', this.username, this.email, this.password);
+    this.authService.signup(this.username, this.email, this.password).then(
+      (response) => {
+        console.log('Signup successful:', response);
+      },
+    ).catch(
+      (error) => {
+        console.error('Signup failed:', error);
+      }
+    );
+    
   }
 }

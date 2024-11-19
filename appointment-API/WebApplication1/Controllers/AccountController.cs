@@ -17,6 +17,9 @@ namespace WebApplication1.Controllers
         }
         [HttpPost(Name = "Signup")]
         public async Task<SignupResponse> Signup(SignupRequest oModel)
+        //[HttpPost]
+        //[Route("api/[controller]/[Action]")]
+        //public async Task<SignupResponse> Signup([FromBody] SignupRequest oModel)
         {
             AccountCOM accountCOM = new AccountCOM();
             SignupResponse response = await accountCOM.Signup(oModel);

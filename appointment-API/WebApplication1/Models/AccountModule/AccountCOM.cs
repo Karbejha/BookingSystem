@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models.Database;
+using MySql.Data.MySqlClient;
 
 namespace WebApplication1.Models.AccountModule
 {
@@ -41,40 +42,46 @@ namespace WebApplication1.Models.AccountModule
         public async Task<SignupResponse> Signup(SignupRequest oModel)
         {
             SignupResponse response = new SignupResponse();
-            using (AppointmentdbContext db = new AppointmentdbContext())
+            try
             {
-                bool userExist = await db.Users.AnyAsync(u => u.Email == oModel.Email);
-                if (userExist)
+                using (AppointmentdbContext db = new AppointmentdbContext())
                 {
-                    response.StatusCode = 409;
-                    response.Message = "Email or Username already exist";
-                    return response;
-                }
-                else
-                {
-                    User newUser = new User()
+                    bool userExist = await db.Users.AnyAsync(u => u.Email == oModel.Email);
+                    if (userExist)
                     {
-                        Email = oModel.Email,
-                        FullName = oModel.UserName,
-                        Password = oModel.Password,
-                        Username = oModel.UserName,
-                        IsActive = 1,
-                        Type = oModel.Type,
-                        //CreatedAt = DateTime.Now,
-                    };
-                    db.Users.Add(newUser);
-                    await db.SaveChangesAsync();
+                        response.StatusCode = 409;
+                        response.Message = "Email or Username already exist";
+                        return response;
+                    }
+                    else
+                    {
+                        User newUser = new User()
+                        {
+                            Email = oModel.Email,
+                            FullName = oModel.UserName,
+                            Password = oModel.Password,
+                            Username = oModel.UserName,
+                            IsActive = 1,
+                            Type =2,
+                            CreatedAt = DateTime.Now,
+                        };
+                        db.Users.Add(newUser);
+                        await db.SaveChangesAsync();
 
-                    response.UserID = newUser.Id;
-                    response.UserName = oModel.UserName;
-                    response.Email = oModel.Email;
-                    response.Type = oModel.Type;
-                    response.IsActive = true;
-                    response.StatusCode = 201;
-                    response.Message = "user created Successful";
+                        response.UserID = newUser.Id;
+                        response.UserName = oModel.UserName;
+                        response.Email = oModel.Email;
+                        response.Type = newUser.Type;
+                        response.IsActive = true;
+                        response.StatusCode = 201;
+                        response.Message = "user created Successful";
+                    }
                 }
-                return response;
             }
+            catch (Exception e) { 
+            }
+            return response;
+
         }
         public async Task<UserDetailsResponse> GetUserDetails(int UserID)
         {

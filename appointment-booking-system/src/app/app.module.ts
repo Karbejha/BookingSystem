@@ -34,10 +34,10 @@ export class AuthService {
     const members = await this.getMembers();
 
     for (let i of members) {
-      if (i.username === username) {
-        if (i.password === password) {
+      if (i.Username === username) {
+        if (i.Password === password) {
           this.isAuthenticated = true;
-          if (i.username == 'admin') {
+          if (i.Username == 'admin') {
             this.isAdmin = true;
           }
           return this.isAdmin;
@@ -68,7 +68,6 @@ export class AuthService {
     return await lastValueFrom(
       this.http
         .get(url)
-        .pipe(map((a) => (<[]>a).map(i => new Member(i['id'], i['username'], i['password']))))
-    );
+        .pipe(map((a) => (<[]>a).map(i => new Member(i['id'], i['username'], i['password'], i['FullName'], 'Email', 'Phone', 'Address'))))    );
   }
 }

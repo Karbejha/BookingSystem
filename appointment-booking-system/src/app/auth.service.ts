@@ -10,6 +10,7 @@ import { get } from 'http';
 
 const url = 'https://localhost:7231/api/Account';
 const loginUrl = `${url}/Login`;
+const signupUrl = `${url}/Signup`;
 
 export class InvalidPasswordError extends Error {
   constructor(message: string) {
@@ -56,7 +57,7 @@ export class AuthService {
         
       // Check if the login was successful based on backend response
       if (response && response.statusCode === 200) {
-        const isAdmin = response.type === 'admin'; // Adjust based on your backend type field
+        const isAdmin = response.type === 1; // Adjust based on your backend type field
         this.setAuthState(true, isAdmin);
         
         // Store user session details
@@ -88,16 +89,22 @@ export class AuthService {
       throw new Error('Login failed: ' + (error as Error).message);
     }
   }
-
   // Similarly, you can implement a signup method if needed
-  async signup(username: string, password: string): Promise<void> {
+  async signup(username: string,  email: string,password: string): Promise<void> {
     const signupUrl = `${url}/Signup`;
     try {
-      await lastValueFrom(this.http.post(signupUrl, { username, password }));
+      let response: any = await lastValueFrom(
+        this.http.post(signupUrl, {  username, password, email  })
+      );
+
+      return response;
     } catch (error) {
       throw new Error('Signup failed');
     }
   }
+  
+  
+  
 
   logout(): void {
     this.setAuthState(false, false);
