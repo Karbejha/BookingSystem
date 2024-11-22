@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  AuthService,
-  InvalidPasswordError,
-  InvalidUserError,
-} from '../auth.service';
+import { AuthService,InvalidPasswordError,InvalidUserError,} from '../auth.service';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,CommonModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -37,7 +35,7 @@ export class LoginComponent {
       if (error instanceof InvalidPasswordError) {
         this.error = 'Invalid Password';
       } else if (error instanceof InvalidUserError) {
-        this.error = 'Invalid User';
+        this.error = 'Username or password incorrect';
       } else {
         this.error = 'Unknown Error';
       }

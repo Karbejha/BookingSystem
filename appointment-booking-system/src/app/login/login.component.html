@@ -9,7 +9,10 @@
       <label for="password">Password</label>
       <input type="password" id="password" [(ngModel)]="password" name="password">
     </div>
-    <div>{{error}}</div>
+    <div *ngIf="error" [ngStyle]="{'color': 'red', 'font-weight': 'bold', 'margin-top': '10px'}">
+      {{ error }}
+    </div>
+    
     <div class="saveSession">
       <input type="checkbox" id="saveSession" [(ngModel)]="saveSession" name="saveSession">
       <label for="saveSession">Save Session</label>
