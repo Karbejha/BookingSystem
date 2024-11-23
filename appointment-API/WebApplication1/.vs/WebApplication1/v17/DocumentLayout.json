@@ -42,11 +42,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
@@ -56,10 +60,9 @@
               "RelativeDocumentMoniker": "Models\\Database\\User.cs",
               "ToolTip": "C:\\Users\\Mohamad Karbejha\\Desktop\\Booking System\\BookingSystem\\appointment-API\\WebApplication1\\Models\\Database\\User.cs",
               "RelativeToolTip": "Models\\Database\\User.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAA1wAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-19T16:18:11.869Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-19T16:18:11.869Z"
             },
             {
               "$type": "Document",
@@ -69,7 +72,7 @@
               "RelativeDocumentMoniker": "Models\\AccountModule\\AccountCOM.cs",
               "ToolTip": "C:\\Users\\Mohamad Karbejha\\Desktop\\Booking System\\BookingSystem\\appointment-API\\WebApplication1\\Models\\AccountModule\\AccountCOM.cs",
               "RelativeToolTip": "Models\\AccountModule\\AccountCOM.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAApwEAAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAAAYwGEAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T19:42:03.873Z",
               "EditorCaption": ""
@@ -82,10 +85,9 @@
               "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\Mohamad Karbejha\\Desktop\\Booking System\\BookingSystem\\appointment-API\\WebApplication1\\Controllers\\AccountController.cs",
               "RelativeToolTip": "Controllers\\AccountController.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAIAAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAIBJwBYAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T11:56:25.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T11:56:25.76Z"
             },
             {
               "$type": "Document",
@@ -121,8 +123,7 @@
               "RelativeToolTip": "Models\\AccountModule\\SignupRequest.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T09:07:21.042Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-16T09:07:21.042Z"
             },
             {
               "$type": "Document",

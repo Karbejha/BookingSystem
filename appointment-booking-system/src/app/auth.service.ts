@@ -5,8 +5,8 @@ import { lastValueFrom, BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators'; 
 import { Member } from './models/member';
 import { isPlatformBrowser } from '@angular/common';
-import e, { response } from 'express';
-import { get } from 'http';
+import { response } from 'express';
+
 
 const url = 'https://localhost:7231/api/Account';
 const loginUrl = `${url}/Login`;
@@ -90,18 +90,24 @@ export class AuthService {
     }
   }
   // Similarly, you can implement a signup method if needed
-  async signup(username: string,  email: string,password: string): Promise<void> {
-    const signupUrl = `${url}/Signup`;
+  async signup(username: string, email: string, password: string): Promise<boolean> {
     try {
-      let response: any = await lastValueFrom(
-        this.http.post(signupUrl, {  username, password, email  })
+      const response: any = await lastValueFrom(
+      this.http.post(signupUrl, { userName: username, email: email, password: password })
       );
-
-      return response;
-    } catch (error) {
-      throw new Error('Signup failed');
+      if (response && response.statusCode === 200) {
+        return response.message === 'User created successfully';
+      } else {
+        throw new Error('Signup failed');
+      }
+    }catch(error: any) {
+      if (error.status === 409) {  // Assuming 409 is for conflict (e.g., username already exists)
+        throw new Error('Username or email already exists');
+      } else {
+        throw new Error('Signup failed');
+      }
     }
-  }  
+  }
 
   logout(): void {
     this.setAuthState(false, false);
