@@ -78,10 +78,10 @@
   }
   
   .search-bar input {
-    padding: 10px;
+    width: 350px !important; 
     border: 1px solid #bdc3c7;
     border-radius: 5px 0 0 5px;
-  }
+}
   
   .search-bar button {
     padding: 10px 15px;

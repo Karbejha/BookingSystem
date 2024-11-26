@@ -433,3 +433,24 @@ msbuild.wrn
 # Visual Studio 2015
 .vs/
 webapplication.dll
+*.cache
+*.dll
+*.exe
+*.pdb
+/build/
+*.suo
+*.user
+_ReSharper.*/
+*.sdf
+*.opensdf
+*.tlog
+*.log
+TestResult.xml
+*.VisualState.xml
+Version.cs
+Version.h
+Version.cpp
+*.csproj.user
+*.csproj.vspscc
+*.csproj.vssscc
+*.sln.docstates

@@ -37,7 +37,7 @@ errorMessage: any;
   signup(): void {
     this.authService.signup(this.username, this.email, this.password).then(
       (response) => {
-        console.log('Signup successful:', response);
+        console.log('Signup successful:');
       },
     ).catch(
       (error) => {

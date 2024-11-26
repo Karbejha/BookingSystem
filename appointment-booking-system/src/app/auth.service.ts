@@ -95,7 +95,7 @@ export class AuthService {
       const response: any = await lastValueFrom(
       this.http.post(signupUrl, { userName: username, email: email, password: password })
       );
-      if (response && response.statusCode === 200) {
+      if (response && response.statusCode === 200 || response.statusCode === 201) {
         return response.message === 'User created successfully';
       } else {
         throw new Error('Signup failed');
