@@ -23,6 +23,8 @@ yarn-error.log
 temp/
 /appointment-API/WebApplication1/obj/
 obj/
+/appointment-API/WebApplication1/bin/
+bin/
 
 # Visual Studio Code
 .vscode/*
