@@ -30,7 +30,7 @@ namespace WebApplication1.Models.AccountModule
                         User newUser = new User()
                         {
                             Email = oModel.Email,
-                            FullName = oModel.UserName,
+                            FullName = oModel.FullName,
                             Username = oModel.UserName,
                             IsActive = 1,
                             Type = 2,
@@ -45,6 +45,7 @@ namespace WebApplication1.Models.AccountModule
 
                         response.UserID = newUser.Id;
                         response.UserName = oModel.UserName;
+                        response.FullName = oModel.FullName;
                         response.Email = oModel.Email;
                         response.Type = newUser.Type;
                         response.IsActive = true;
