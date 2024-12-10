@@ -18,7 +18,9 @@
       <ng-template #loggedIn>
         <li><button (click)="Dashboard()" class="Dashboard">Dashboard</button></li>
         <li><button (click)="logout()" class="logout">Logout</button></li>
-        <li *ngIf="isAdmin$ | async"><a href="/admin-dashboard">Admin Panel</a></li>
+        <li *ngIf="isAdmin$ | async">
+          <a href="/admin-dashboard" class="admin-panel">Admin Panel</a>
+        </li>
       </ng-template>
     </ul>
   </nav>

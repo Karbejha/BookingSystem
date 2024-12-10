@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SignupComponent {
   username: string = '';
+  FullName: string = '';
   email: string = '';
   password: string = '';
 errorMessage: any;
@@ -25,6 +26,9 @@ errorMessage: any;
       case 'username':
         this.username = inputElement.value;
         break;
+      case 'fullname':
+        this.FullName = inputElement.value;
+        break;
       case 'email':
         this.email = inputElement.value;
         break;
@@ -34,8 +38,14 @@ errorMessage: any;
     }
   }
 
+  showPassword: boolean = false;
+
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
   signup(): void {
-    this.authService.signup(this.username, this.email, this.password).then(
+    this.authService.signup(this.username, this.FullName, this.email, this.password).then(
       (response) => {
         console.log('Signup successful:');
       },

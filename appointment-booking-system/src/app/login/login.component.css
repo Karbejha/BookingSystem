@@ -31,7 +31,7 @@
   
   /* Form inputs */
   .form-group input {
-    width: calc(100% - 20px);
+    width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -76,4 +76,22 @@
     .form-group input {
       width: 100%;
     }
+  }
+  .password-container {
+    position: relative;
+  }
+  
+  .password-container input {
+    padding-right: 40px; 
+  }
+  
+  .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
   }

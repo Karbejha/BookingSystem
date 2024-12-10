@@ -90,10 +90,10 @@ export class AuthService {
     }
   }
   // Similarly, you can implement a signup method if needed
-  async signup(username: string, email: string, password: string): Promise<boolean> {
+  async signup(username: string,FullName:string, email: string, password: string): Promise<boolean> {
     try {
       const response: any = await lastValueFrom(
-      this.http.post(signupUrl, { userName: username, email: email, password: password })
+      this.http.post(signupUrl, { userName: username,FullName:FullName, email: email, password: password })
       );
       if (response && response.statusCode === 200 || response.statusCode === 201) {
         return response.message === 'User created successfully';

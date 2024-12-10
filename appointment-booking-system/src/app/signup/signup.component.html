@@ -1,20 +1,92 @@
-  <div class="signup-container">
-    <h2>Sign Up</h2>
-    <form (submit)="signup()">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" [value]="username" (input)="onInputChange($event, 'username')" name="username">
+<div class="signup-container">
+  <h2 class="text-center mb-4">Sign Up</h2>
+  <form (submit)="signup()" #signupForm="ngForm" novalidate>
+    <!-- Username -->
+    <div class="form-group mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        id="username"
+        class="form-control"
+        [(ngModel)]="username"
+        name="username"
+        #usernameInput="ngModel"
+        required
+        [ngClass]="{ 'is-invalid': usernameInput.invalid && usernameInput.touched }"
+      />
+      <div *ngIf="usernameInput.invalid && usernameInput.touched" class="invalid-feedback">
+        Username is required
       </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" [value]="email" (input)="onInputChange($event, 'email')" name="email">
+    </div>
+
+    <!-- Full Name -->
+    <div class="form-group mb-3">
+      <label for="fullName" class="form-label">Full Name</label>
+      <input
+        type="text"
+        id="fullName"
+        class="form-control"
+        [(ngModel)]="FullName"
+        name="fullName"
+        #fullNameInput="ngModel"
+        required
+        [ngClass]="{ 'is-invalid': fullNameInput.invalid && fullNameInput.touched }"
+      />
+      <div *ngIf="fullNameInput.invalid && fullNameInput.touched" class="invalid-feedback">
+        Full Name is required
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" [value]="password" (input)="onInputChange($event, 'password')" name="password">
+    </div>
+
+    <!-- Email -->
+    <div class="form-group mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        id="email"
+        class="form-control"
+        [(ngModel)]="email"
+        name="email"
+        #emailInput="ngModel"
+        required
+        [ngClass]="{ 'is-invalid': emailInput.invalid && emailInput.touched }"
+      />
+      <div *ngIf="emailInput.invalid && emailInput.touched" class="invalid-feedback">
+        Email is required
       </div>
-      <button type="submit" class="btn">Sign Up</button>
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
-    </form>
-  </div>
-  
+    </div>
+
+    <!-- Password -->
+    <div class="form-group mb-3">
+      <label for="password" class="form-label">Password</label>
+      <div class="password-container"> 
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          class="form-control"
+          [(ngModel)]="password"
+          name="password"
+          #passwordInput="ngModel"
+          required
+          [ngClass]="{ 'is-invalid': passwordInput.invalid && passwordInput.touched }"
+        />
+        <button
+          title="Toggle Password Visibility"
+          type="button"
+          class="toggle-password" 
+          (click)="togglePasswordVisibility()"
+        >
+          <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+        </button>
+      </div>
+      <div *ngIf="passwordInput.invalid && passwordInput.touched" class="invalid-feedback">
+        Password is required
+      </div>
+    </div>
+
+    <!-- Sign Up Button -->
+    <button type="submit" class="btn btn-primary w-100">Sign Up</button>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message mt-3 text-danger">{{ errorMessage }}</div>
+  </form>
+</div>

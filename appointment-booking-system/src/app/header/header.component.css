@@ -109,7 +109,26 @@ nav ul li a:hover, nav ul li button:hover {
   }
 
   .signup, .login, .logout, .Dashboard {
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
     display: inline-block;
-    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
   }
+}
+.admin-panel {
+  background-color: #28a745; 
+  padding: 6px 13px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+.admin-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }

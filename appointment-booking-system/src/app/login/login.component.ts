@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 })
 export class LoginComponent {
   saveSession: boolean = false;
+  showPassword: boolean = false;
   constructor(private auth: AuthService, private router: Router) {}
 
   username: string = '';
@@ -40,5 +41,8 @@ export class LoginComponent {
         this.error = 'Unknown Error';
       }
     }
+  }
+  togglePasswordVisibility() { 
+    this.showPassword = !this.showPassword;
   }
 }
