@@ -95,3 +95,16 @@
     cursor: pointer;
     font-size: 16px;
   }
+
+
+  /* Style for invalid input fields */
+.is-invalid {
+  border-color: red;
+}
+
+/* Error message styling */
+.invalid-feedback {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}

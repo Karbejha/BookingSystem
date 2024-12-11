@@ -80,8 +80,8 @@
 }
 
 .password-container input {
-  width: 100%; /* Full width of input field */
-  padding-right: 40px; /* Leave space for the toggle button */
+  width: 100%; 
+  padding-right: 40px; 
   box-sizing: border-box;
 }
 
@@ -158,4 +158,10 @@
   border: none;
   cursor: pointer;
   font-size: 16px;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }

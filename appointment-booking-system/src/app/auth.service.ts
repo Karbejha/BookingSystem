@@ -2,10 +2,8 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { lastValueFrom, BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; 
 import { Member } from './models/member';
 import { isPlatformBrowser } from '@angular/common';
-import { response } from 'express';
 
 
 const url = 'https://localhost:7231/api/Account';

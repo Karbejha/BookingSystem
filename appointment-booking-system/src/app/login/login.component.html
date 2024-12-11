@@ -1,28 +1,64 @@
 <div class="login-container">
   <h2>Login</h2>
-  <form (submit)="login()">
+  <form (submit)="login()" #loginForm="ngForm" novalidate>
+    
+    <!-- Username -->
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" id="username" [(ngModel)]="username" name="username">
+      <input 
+        type="text" 
+        id="username" 
+        [(ngModel)]="username" 
+        name="username" 
+        #usernameInput="ngModel"
+        required
+        [ngClass]="{ 'is-invalid': usernameInput.invalid && usernameInput.touched }"
+      />
+      <!-- Error message for username -->
+      <div *ngIf="usernameInput.invalid && usernameInput.touched" class="invalid-feedback">
+        Username is required
+      </div>
     </div>
+
+    <!-- Password -->
     <div class="form-group">
       <label for="password">Password</label>
       <div class="password-container">
-        <input [type]="showPassword ? 'text' : 'password'" id="password" [(ngModel)]="password" name="password">
-        <button title="Toggle Password Visibility" type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+        <input 
+          [type]="showPassword ? 'text' : 'password'" 
+          id="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          #passwordInput="ngModel"
+          required
+          [ngClass]="{ 'is-invalid': passwordInput.invalid && passwordInput.touched }"
+        />
+        <button 
+          title="Toggle Password Visibility" 
+          type="button" 
+          class="toggle-password" 
+          (click)="togglePasswordVisibility()">
           <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
         </button>
       </div>
+      <!-- Error message for password -->
+      <div *ngIf="passwordInput.invalid && passwordInput.touched" class="invalid-feedback">
+        Password is required
+      </div>
     </div>
-    
-    <div *ngIf="error" [ngStyle]="{'color': 'red', 'font-weight': 'bold', 'margin-top': '10px'}">
+
+    <!-- Error message for general error (if any) -->
+    <div *ngIf="error" [ngStyle]="{'color': 'red', 'margin-top': '10px'}">
       {{ error }}
     </div>
 
+    <!-- Save Session -->
     <div class="saveSession">
       <input type="checkbox" id="saveSession" [(ngModel)]="saveSession" name="saveSession">
       <label for="saveSession">Save Session</label>
     </div>
-    <button type="submit" class="btn">Login</button>
+    
+    <!-- Login Button -->
+    <button type="submit" class="btn" [disabled]="loginForm.invalid">Login</button>
   </form>
 </div>
