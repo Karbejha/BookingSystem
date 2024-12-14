@@ -32,5 +32,14 @@ namespace WebApplication1.Controllers
             UserDetailsResponse response = await accountCOM.GetUserDetails(UserID);
             return response;
         }
-    }
-}
+        [HttpPut(Name = "UpdateUserProfile")]
+        public async Task<UserDetailsResponse> UpdateUserProfile([FromBody] UserUpdateRequest oModel, [FromQuery] int UserID)
+        {
+            AccountCOM accountCOM = new AccountCOM();
+            UserDetailsResponse response = await accountCOM.UpdateUserProfile(UserID, oModel);
+            return response;
+        }
+    };
+    
+
+};

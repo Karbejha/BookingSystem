@@ -133,5 +133,50 @@ namespace WebApplication1.Models.AccountModule
             }
             return response;
         }
+        public async Task<UserDetailsResponse> UpdateUserProfile(int userId, UserUpdateRequest oModel)
+        {
+            UserDetailsResponse response = new UserDetailsResponse();
+            try
+            {
+                using (AppointmentdbContext db = new AppointmentdbContext())
+                {
+                    var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
+
+                    if (user != null)
+                    {
+                        // Update user fields
+                        user.FullName = oModel.FullName;
+                        user.Email = oModel.Email;
+                        user.Phone = oModel.Phone;
+                        user.Address = oModel.Address;
+
+                        await db.SaveChangesAsync();
+
+                        // Prepare response
+                        response.UserID = user.Id;
+                        response.UserName = user.Username;
+                        response.FullName = user.FullName;
+                        response.Email = user.Email;
+                        response.Phone = user.Phone;
+                        response.Address = user.Address;
+                        response.Type = user.Type;
+                        response.IsActive = true;
+                        response.StatusCode = 200;
+                        response.Message = "Profile updated successfully";
+                    }
+                    else
+                    {
+                        response.StatusCode = 404;
+                        response.Message = "User not found";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.StatusCode = 500;
+                response.Message = "An error occurred while updating the profile.";
+            }
+            return response;
+        }
     }
 };

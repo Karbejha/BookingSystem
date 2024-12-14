@@ -184,4 +184,42 @@ export class AuthService {
     }
  
   }
+  async updateUserProfile(userUpdate: {
+    name: string, 
+    email: string, 
+    phone: string, 
+    address: string
+  }): Promise<boolean> {
+    try {
+      const UserID = this.getStoredUserID();
+      const updateUrl = `${url}/UpdateUserProfile?UserID=${UserID}`;
+      
+      const response: any = await lastValueFrom(
+        this.http.put(updateUrl, {
+          FullName: userUpdate.name,
+          Email: userUpdate.email,
+          Phone: userUpdate.phone,
+          Address: userUpdate.address
+        })
+      );
+  
+      if (response && response.statusCode === 200) {
+        // Update local storage with new user details
+        const currentSession = JSON.parse(this.getFromStorage('userSession') || '{}');
+        const updatedSession = {
+          ...currentSession,
+          username: response.userName,
+          email: response.email
+        };
+        this.setInStorage('userSession', JSON.stringify(updatedSession));
+  
+        return true;
+      } else {
+        throw new Error(response.message || 'Profile update failed');
+      }
+    } catch (error) {
+      console.error('Profile update failed:', error);
+      throw error;
+    }
+  }
 }

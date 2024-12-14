@@ -97,10 +97,10 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
     this.editMode = true;
   }
 
-  saveProfile(): void {
-    this.user = { ...this.editedUser };
-    this.editMode = false;
-  }
+  // saveProfile(): void {
+  //   this.user = { ...this.editedUser };
+  //   this.editMode = false;
+  // }
 
   cancelEdit(): void {
     this.editedUser = { ...this.user };
@@ -112,6 +112,7 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
     this.updateCalendarEvents();
   }
 
+  
   bookAppointment(): void {
     if (this.newAppointment.date && this.newAppointment.service) {
       this.appointments.push({...this.newAppointment});
@@ -120,6 +121,27 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
     } else {
       console.log('Please select both date and service');
     }
+  }
+  
+  saveProfile(): void {
+    this.authService.updateUserProfile({
+      name: this.editedUser.name,
+      email: this.editedUser.email,
+      phone: this.editedUser.phone,
+      address: this.editedUser.address
+    }).then(success => {
+      if (success) {
+        this.user = { ...this.editedUser };
+        this.editMode = false;
+        // Optionally, show a success message
+        alert('Profile updated successfully');
+      }
+    }).catch(error => {
+      // Handle error
+      alert('Failed to update profile: ' + error.message);
+      // Revert changes
+      this.editedUser = { ...this.user };
+    });
   }
 
   handleDateClick(arg: DateClickArg): void {
@@ -137,3 +159,4 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
     }
   }
 }
+
