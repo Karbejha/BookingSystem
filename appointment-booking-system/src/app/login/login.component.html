@@ -13,6 +13,7 @@
         #usernameInput="ngModel"
         required
         [ngClass]="{ 'is-invalid': usernameInput.invalid && usernameInput.touched }"
+        placeholder="Enter your username"
       />
       <!-- Error message for username -->
       <div *ngIf="usernameInput.invalid && usernameInput.touched" class="invalid-feedback">
@@ -32,6 +33,7 @@
           #passwordInput="ngModel"
           required
           [ngClass]="{ 'is-invalid': passwordInput.invalid && passwordInput.touched }"
+          placeholder="Enter your password"
         />
         <button 
           title="Toggle Password Visibility" 
@@ -55,7 +57,7 @@
     <!-- Save Session -->
     <div class="saveSession">
       <input type="checkbox" id="saveSession" [(ngModel)]="saveSession" name="saveSession">
-      <label for="saveSession">Save Session</label>
+      <label for="saveSession">Remember Me</label>
     </div>
     
     <!-- Login Button -->

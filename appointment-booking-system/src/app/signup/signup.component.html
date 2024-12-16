@@ -90,3 +90,10 @@
     <div *ngIf="errorMessage" class="error-message mt-3 text-danger">{{ errorMessage }}</div>
   </form>
 </div>
+
+<div *ngIf="showSuccessMessage" class="success-message">
+  <div class="checkmark-container">
+    <i class="bi bi-check-circle"></i>
+  </div>
+  <p>Signup successful!</p>
+</div>

@@ -17,7 +17,9 @@ export class SignupComponent {
   FullName: string = '';
   email: string = '';
   password: string = '';
-errorMessage: any;
+  errorMessage: any;
+  showSuccessMessage: boolean = false;
+  isSubmitting: boolean = false;
 
   constructor(private authService: AuthService, private http:HttpClient) { }
   onInputChange(event: Event, field: string): void {
@@ -44,18 +46,29 @@ errorMessage: any;
     this.showPassword = !this.showPassword;
   }
 
-  signup(): void {
-    this.authService.signup(this.username, this.FullName, this.email, this.password).then(
-      (response) => {
-        console.log('Signup successful:');
-      },
-    ).catch(
-      (error) => {
-        console.error('Signup failed:', error);
-      }
-    );
-    
-  }
+  
+signup(): void {
+  this.isSubmitting = true;
+  this.authService.signup(this.username, this.FullName, this.email, this.password).then(
+    (response) => {
+      console.log('Signup successful:');
+      this.isSubmitting = false;
+      this.showSuccessMessage = true; // Show success message
+      
+      // Hide the message after a few seconds (optional)
+      setTimeout(() => {
+        this.showSuccessMessage = false;
+      }, 9000);
+    },
+  ).catch(
+    (error) => {
+      console.error('Signup failed:', error);
+      this.errorMessage = 'Signup failed. Please try again.';
+      this.isSubmitting = false;
+    }
+  );
+}
+
   
 }
 

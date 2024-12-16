@@ -64,10 +64,10 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
       this.authService.getUserData(currentUserid).then(userData => {
         if (userData) {
           this.user = {
-            name: userData.Username ?? 'No Name Provided',
-            email: userData.Email ?? 'No Email Provided',
-            phone: userData.phone ?? 'No Phone Provided',
-            address: userData.address ?? 'No Address Provided'
+            name: userData.Username ?? '',
+            email: userData.Email ?? '',
+            phone: userData.phone ?? '',
+            address: userData.address ?? ''
           };
           this.editedUser = { ...this.user };
         } else {
