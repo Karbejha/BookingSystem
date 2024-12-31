@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService,InvalidPasswordError,InvalidUserError,} from '../auth.service';
+import { AuthService, InvalidPasswordError, InvalidUserError } from '../auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   saveSession: boolean = false;
   showPassword: boolean = false;
+  showSuccessMessage: boolean = false; // New variable for success message
+
   constructor(private auth: AuthService, private router: Router) { }
 
   username: string = '';
@@ -32,6 +34,18 @@ export class LoginComponent {
       } else {
         this.router.navigate(['/user-dashboard']);
       }
+
+      // Show success message if login is successful
+      this.showSuccessMessage = true;
+
+      // Show SweetAlert2 success message
+      Swal.fire({
+        title: 'Login successful!',
+        text: 'You have logged in successfully!',
+        icon: 'success',
+        confirmButtonText: 'OK',
+      });
+
     } catch (error) {
       if (error instanceof InvalidPasswordError) {
         this.error = 'Invalid Password';
@@ -42,6 +56,7 @@ export class LoginComponent {
       }
     }
   }
+
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }

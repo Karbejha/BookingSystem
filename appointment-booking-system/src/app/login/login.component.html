@@ -63,4 +63,12 @@
     <!-- Login Button -->
     <button type="submit" class="btn" [disabled]="loginForm.invalid">Login</button>
   </form>
+
+  <!-- Success message block -->
+  <div *ngIf="showSuccessMessage" class="success-message">
+    <div class="checkmark-container">
+      <i class="bi bi-check-circle"></i>
+    </div>
+    <p>Login successful!</p>
+  </div>
 </div>

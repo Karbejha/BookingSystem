@@ -71,3 +71,4 @@ export class AuthService {
         .pipe(map((a) => (<[]>a).map(i => new Member(i['id'], i['username'], i['password'], i['FullName'], 'Email', 'Phone', 'Address'))))    );
   }
 }
+

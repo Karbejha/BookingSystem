@@ -13,6 +13,7 @@
         #usernameInput="ngModel"
         required
         [ngClass]="{ 'is-invalid': usernameInput.invalid && usernameInput.touched }"
+        placeholder="Enter your username"
       />
       <div *ngIf="usernameInput.invalid && usernameInput.touched" class="invalid-feedback">
         Username is required
@@ -31,6 +32,7 @@
         #fullNameInput="ngModel"
         required
         [ngClass]="{ 'is-invalid': fullNameInput.invalid && fullNameInput.touched }"
+        placeholder="Enter your full name"
       />
       <div *ngIf="fullNameInput.invalid && fullNameInput.touched" class="invalid-feedback">
         Full Name is required
@@ -50,6 +52,7 @@
       required
       email
       [ngClass]="{ 'is-invalid': emailInput.invalid && emailInput.touched }"
+      placeholder="Enter your email"
     />
     <div *ngIf="emailInput.errors?.['required'] && emailInput.touched" class="invalid-feedback">
       Email is required
@@ -72,6 +75,7 @@
           #passwordInput="ngModel"
           required
           [ngClass]="{ 'is-invalid': passwordInput.invalid && passwordInput.touched }"
+          placeholder="Enter your password"
         />
         <button
           title="Toggle Password Visibility"
