@@ -4,15 +4,50 @@
   </header>
   <nav>
     <ul>
-      <li><a (click)="setActiveTab('profile')" [class.active]="activeTab === 'profile'">Profile</a></li>
-      <li><a (click)="setActiveTab('appointments')" [class.active]="activeTab === 'appointments'">My Appointments</a></li>
       <li><a (click)="setActiveTab('book')" [class.active]="activeTab === 'book'">Book Appointment</a></li>
+      <li><a (click)="setActiveTab('appointments')" [class.active]="activeTab === 'appointments'">My Appointments</a></li>
+      <li><a (click)="setActiveTab('profile')" [class.active]="activeTab === 'profile'">Profile</a></li>
     </ul>
   </nav>
   <main>
+    <div *ngIf="activeTab === 'book'" class="tab-content">
+      <h2>Book Appointment</h2>
+      <div class="form-group">
+        <label for="service">Service:</label>
+        <select id="service" [(ngModel)]="newAppointment.service" name="service" required>
+          <option value="">Select a service</option>
+          <option value="Haircut">Haircut</option>
+          <option value="Massage">Massage</option>
+          <option value="Consultation">Consultation</option>
+        </select>
+      </div>
+      <form (submit)="bookAppointment()" class="booking-form">
+        <div class="form-group">
+          <label for="date">Date:</label>
+          <!-- Wrap FullCalendar in *ngIf to ensure it runs only in the browser -->
+          <div *ngIf="isBrowser">
+            <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+          </div>
+        </div>
+        
+        <button type="submit" class="book-btn">Book Appointment</button>
+      </form>
+    </div>
+    
+    <div *ngIf="activeTab === 'appointments'" class="tab-content">
+      <h2>My Appointments</h2>
+      <ul class="appointment-list">
+        <li *ngFor="let appointment of appointments" class="appointment-item">
+          <span class="appointment-date">{{appointment.date | date:'medium'}}</span>
+          <span class="appointment-service">{{appointment.service}}</span>
+          <button (click)="cancelAppointment(appointment)" class="cancel-btn">Cancel</button>
+        </li>
+      </ul>
+      <p *ngIf="appointments.length === 0">You have no appointments.</p>
+    </div>
+    
     <div *ngIf="activeTab === 'profile'" class="tab-content">
       <h2>Profile</h2>
-    
       <div *ngIf="!editMode">
         <p style="color: red; font-weight: bold;">Name: <span style="color: black;">{{user.name}}</span></p>
         <p style="color: red;font-weight: bold;">Email: <span style="color: black;">{{user.email}}</span></p>
@@ -32,7 +67,7 @@
         </div>
         <div class="form-group">
           <label for="phone">Phone:</label>
-          <input type="text" id="phone" [(ngModel)]="editedUser.phone"placeholder="Enter Your Phone Number">
+          <input type="text" id="phone" [(ngModel)]="editedUser.phone" placeholder="Enter Your Phone Number">
         </div>
         <div class="form-group">
           <label for="address">Address:</label>
@@ -41,37 +76,6 @@
         <button (click)="saveProfile()">Save</button>
         <button (click)="cancelEdit()">Cancel</button>
       </div>
-    </div>
-    <div *ngIf="activeTab === 'appointments'" class="tab-content">
-      <h2>My Appointments</h2>
-      <ul class="appointment-list">
-        <li *ngFor="let appointment of appointments" class="appointment-item">
-          <span class="appointment-date">{{appointment.date | date:'medium'}}</span>
-          <span class="appointment-service">{{appointment.service}}</span>
-          <button (click)="cancelAppointment(appointment)" class="cancel-btn">Cancel</button>
-        </li>
-      </ul>
-      <p *ngIf="appointments.length === 0">You have no appointments.</p>
-    </div>
-    <div *ngIf="activeTab === 'book'" class="tab-content">
-      <h2>Book Appointment</h2>
-      <div class="form-group">
-        <label for="service">Service:</label>
-        <select id="service" [(ngModel)]="newAppointment.service" name="service" required>
-          <option value="">Select a service</option>
-          <option value="Haircut">Haircut</option>
-          <option value="Massage">Massage</option>
-          <option value="Consultation">Consultation</option>
-        </select>
-      </div>
-      <form (submit)="bookAppointment()" class="booking-form">
-        <div class="form-group">
-          <label for="date">Date:</label>
-          <full-calendar #calendar [options]="calendarOptions"></full-calendar>
-        </div>
-        
-        <button type="submit" class="book-btn">Book Appointment</button>
-      </form>
     </div>
   </main>
   <app-booking-popup 

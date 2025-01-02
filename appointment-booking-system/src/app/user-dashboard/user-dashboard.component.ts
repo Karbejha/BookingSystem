@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
@@ -9,6 +9,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { OnInit } from '@angular/core';
 import { BookingPopupComponent } from '../booking-popup/booking-popup.component';
+import { isPlatformBrowser } from '@angular/common'; // Import isPlatformBrowser
 
 interface Appointment {
   date: string;
@@ -25,7 +26,7 @@ interface Appointment {
 export class UserDashboardComponent implements AfterViewInit {
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
-  activeTab: string = 'profile';
+  activeTab: string = 'book';
   user = {
     name: '',
     email: '',
@@ -44,6 +45,8 @@ export class UserDashboardComponent implements AfterViewInit {
   isPopupVisible: boolean = false;
   selectedDate: string = '';
 
+  isBrowser: boolean; // Add this variable
+
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
     initialView: 'dayGridMonth',
@@ -59,7 +62,12 @@ export class UserDashboardComponent implements AfterViewInit {
     dayMaxEvents: true
   };
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    @Inject(PLATFORM_ID) private platformId: Object // Inject PLATFORM_ID
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId); // Check if running in the browser
+  }
   
   ngOnInit(): void {
     const currentUserid = this.authService.getStoredUserID();
@@ -82,13 +90,15 @@ export class UserDashboardComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.updateCalendarEvents();
+    if (this.isBrowser) { // Only initialize FullCalendar in the browser
+      this.updateCalendarEvents();
+    }
   }
 
   setActiveTab(tab: string): void {
     this.activeTab = tab;
 
-    if (tab === 'book') { 
+    if (tab === 'book' && this.isBrowser) { // Only update calendar in the browser
       this.updateCalendarEvents();
     }
   }
@@ -157,7 +167,7 @@ export class UserDashboardComponent implements AfterViewInit {
   }
 
   updateCalendarEvents(): void {
-    if (this.calendarComponent && this.calendarComponent.getApi()) {
+    if (this.isBrowser && this.calendarComponent && this.calendarComponent.getApi()) { // Check if browser
       const calendarApi = this.calendarComponent.getApi();
       calendarApi.removeAllEvents();
       calendarApi.addEventSource(this.appointments.map(app => ({
