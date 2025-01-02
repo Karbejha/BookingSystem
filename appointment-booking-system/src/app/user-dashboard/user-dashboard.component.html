@@ -74,4 +74,9 @@
       </form>
     </div>
   </main>
+  <app-booking-popup 
+    [isVisible]="isPopupVisible" 
+    (bookingSubmitted)="onBookingSubmitted($event)"
+    (cancel)="onPopupCancel()">
+  </app-booking-popup>
 </div>

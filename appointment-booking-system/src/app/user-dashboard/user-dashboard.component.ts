@@ -8,6 +8,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { OnInit } from '@angular/core';
+import { BookingPopupComponent } from '../booking-popup/booking-popup.component';
 
 interface Appointment {
   date: string;
@@ -19,9 +20,9 @@ interface Appointment {
   templateUrl: './user-dashboard.component.html',
   styleUrls: ['./user-dashboard.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, FullCalendarModule]
+  imports: [CommonModule, FormsModule, FullCalendarModule, BookingPopupComponent]
 })
-export class UserDashboardComponent implements AfterViewInit { // implements AfterViewInit
+export class UserDashboardComponent implements AfterViewInit {
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   activeTab: string = 'profile';
@@ -40,8 +41,11 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
     service: ''
   };
 
+  isPopupVisible: boolean = false;
+  selectedDate: string = '';
+
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin, interactionPlugin,timeGridPlugin],
+    plugins: [dayGridPlugin, interactionPlugin, timeGridPlugin],
     initialView: 'dayGridMonth',
     dateClick: this.handleDateClick.bind(this),
     events: [],
@@ -97,11 +101,6 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
     this.editMode = true;
   }
 
-  // saveProfile(): void {
-  //   this.user = { ...this.editedUser };
-  //   this.editMode = false;
-  // }
-
   cancelEdit(): void {
     this.editedUser = { ...this.user };
     this.editMode = false;
@@ -112,7 +111,6 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
     this.updateCalendarEvents();
   }
 
-  
   bookAppointment(): void {
     if (this.newAppointment.date && this.newAppointment.service) {
       this.appointments.push({...this.newAppointment});
@@ -133,23 +131,33 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
       if (success) {
         this.user = { ...this.editedUser };
         this.editMode = false;
-        // Optionally, show a success message
         alert('Profile updated successfully');
       }
     }).catch(error => {
-      // Handle error
       alert('Failed to update profile: ' + error.message);
-      // Revert changes
       this.editedUser = { ...this.user };
     });
   }
 
   handleDateClick(arg: DateClickArg): void {
-    this.newAppointment.date = arg.dateStr;
+    this.selectedDate = arg.dateStr;
+    this.isPopupVisible = true;
+  }
+
+  onBookingSubmitted(booking: any): void {
+    const dateTime = `${booking.date}T${booking.time}`;
+    this.newAppointment.date = dateTime;
+    this.newAppointment.service = booking.title;
+    this.bookAppointment();
+    this.isPopupVisible = false;
+  }
+
+  onPopupCancel(): void {
+    this.isPopupVisible = false;
   }
 
   updateCalendarEvents(): void {
-    if (this.calendarComponent && this.calendarComponent.getApi()) { // Check if calendar exists
+    if (this.calendarComponent && this.calendarComponent.getApi()) {
       const calendarApi = this.calendarComponent.getApi();
       calendarApi.removeAllEvents();
       calendarApi.addEventSource(this.appointments.map(app => ({
@@ -159,4 +167,3 @@ export class UserDashboardComponent implements AfterViewInit { // implements Aft
     }
   }
 }
-
