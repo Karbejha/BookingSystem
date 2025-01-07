@@ -5,14 +5,14 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist/APPOINTMENT-BOOKING-SYSTEM"
+        "distDir": "dist/appointment-booking-system"
       }
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/dist/APPOINTMENT-BOOKING-SYSTEM"
+      "dest": "/dist/appointment-booking-system"
     }
   ]
 }
