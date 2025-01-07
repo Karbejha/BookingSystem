@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/angular"
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/APPOINTMENT-BOOKING-SYSTEM"
+      }
     }
   ],
   "routes": [
