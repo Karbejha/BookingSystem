@@ -178,5 +178,27 @@ namespace WebApplication1.Models.AccountModule
             }
             return response;
         }
+
+        public async Task<bool> ResetPassword(ResetPasswordRequest model)
+        {
+            try
+            {
+                using (AppointmentdbContext db = new AppointmentdbContext())
+                {
+                    var user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                    if (user != null)
+                    {
+                        user.Password = _passwordHasher.HashPassword(user, model.NewPassword);
+                        await db.SaveChangesAsync();
+                        return true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Log exception
+            }
+            return false;
+        }
     }
 };

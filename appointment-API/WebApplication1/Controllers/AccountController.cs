@@ -39,6 +39,18 @@ namespace WebApplication1.Controllers
             UserDetailsResponse response = await accountCOM.UpdateUserProfile(UserID, oModel);
             return response;
         }
+
+        [HttpPost(Name = "ResetPassword")]
+        public async Task<IActionResult> ResetPassword(ResetPasswordRequest model)
+        {
+            AccountCOM accountCOM = new AccountCOM();
+            var result = await accountCOM.ResetPassword(model);
+            if (result)
+            {
+                return Ok(new { Message = "Password reset successfully" });
+            }
+            return BadRequest(new { Message = "Password reset failed" });
+        }
     };
     
 

@@ -222,4 +222,22 @@ export class AuthService {
       throw error;
     }
   }
+
+  // Add this method to your AuthService class
+async resetPassword(email: string, newPassword: string): Promise<boolean> {
+  const resetPasswordUrl = `${url}/ResetPassword`;
+  try {
+    const response: any = await lastValueFrom(
+      this.http.post(resetPasswordUrl, { Email: email, NewPassword: newPassword })
+    );
+    if (response && response.statusCode === 200) {
+      return true; // Password reset successful
+    } else {
+      throw new Error(response.message || 'Password reset failed');
+    }
+  } catch (error) {
+    console.error('Password reset failed:', error);
+    throw error;
+  }
+}
 }
