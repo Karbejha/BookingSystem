@@ -13,14 +13,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent {
-  email: string = '';
+  username: string = '';
   newPassword: string = '';
   error: string = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
   resetPassword() {
-    this.http.post('/api/Account/ResetPassword', { email: this.email, newPassword: this.newPassword })
+    this.http.post('/api/Account/ResetPassword', { userName: this.username, newPassword: this.newPassword })
       .subscribe(
         () => {
           Swal.fire('Success', 'Password reset successfully', 'success');

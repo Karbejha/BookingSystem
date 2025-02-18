@@ -54,7 +54,7 @@ namespace WebApplication1.Models.AccountModule
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 response.StatusCode = 500;
                 response.Message = "An error occurred while creating the user.";
@@ -67,18 +67,18 @@ namespace WebApplication1.Models.AccountModule
             LoginResponse response = new LoginResponse();
             using (AppointmentdbContext db = new AppointmentdbContext())
             {
-                User oUser = await db.Users.FirstOrDefaultAsync(x => x.Username == oModel.UserName);
+                User? oUser = await db.Users.FirstOrDefaultAsync(x => x.Username == oModel.UserName);
                 if (oUser != null)
                 {
                     // Verify the password
-                    var verificationResult = _passwordHasher.VerifyHashedPassword(oUser, oUser.Password, oModel.Password);
+                    var verificationResult = _passwordHasher.VerifyHashedPassword(oUser, oUser.Password ?? string.Empty, oModel.Password);
                     if (verificationResult == PasswordVerificationResult.Success)
                     {
                         if (oUser.IsActive == 1)
                         {
                             response.UserID = oUser.Id;
-                            response.UserName = oUser.Username;
-                            response.Email = oUser.Email;
+                            response.UserName = oUser.Username ?? string.Empty;
+                            response.Email = oUser.Email ?? string.Empty;
                             response.Type = oUser.Type;
                             response.IsActive = true;
                             response.StatusCode = 200;
@@ -111,16 +111,16 @@ namespace WebApplication1.Models.AccountModule
             UserDetailsResponse response = new UserDetailsResponse();
             using (AppointmentdbContext db = new AppointmentdbContext())
             {
-                User oUser = await db.Users.Where(x => x.Id == UserID).FirstOrDefaultAsync();
+                User? oUser = await db.Users.Where(x => x.Id == UserID).FirstOrDefaultAsync();
                 if (oUser != null && oUser.Id > 0)
                 {
                     response.UserID = oUser.Id;
                     response.UserName = oUser.Username; 
-                    response.FullName = oUser.FullName;
+                    response.FullName = oUser.FullName ?? string.Empty;
                     response.Email = oUser.Email;
                     response.Type = oUser.Type;
-                    response.Address =oUser.Address;
-                    response.Phone = oUser.Phone;
+                    response.Address = oUser.Address ?? string.Empty;
+                    response.Phone = oUser.Phone ?? string.Empty;
                     response.IsActive = true;
                     response.StatusCode = 200;
                     response.Message = "Success";
@@ -154,7 +154,7 @@ namespace WebApplication1.Models.AccountModule
 
                         // Prepare response
                         response.UserID = user.Id;
-                        response.UserName = user.Username;
+                        response.UserName = user.Username ?? string.Empty;
                         response.FullName = user.FullName;
                         response.Email = user.Email;
                         response.Phone = user.Phone;
@@ -171,7 +171,7 @@ namespace WebApplication1.Models.AccountModule
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 response.StatusCode = 500;
                 response.Message = "An error occurred while updating the profile.";
@@ -185,7 +185,7 @@ namespace WebApplication1.Models.AccountModule
             {
                 using (AppointmentdbContext db = new AppointmentdbContext())
                 {
-                    var user = await db.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+                    var user = await db.Users.FirstOrDefaultAsync(u => u.Username == model.UserName);
                     if (user != null)
                     {
                         user.Password = _passwordHasher.HashPassword(user, model.NewPassword);

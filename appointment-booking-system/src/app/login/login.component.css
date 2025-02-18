@@ -135,12 +135,28 @@ margin-right: 15px;
 }
 
 @keyframes fadeIn {
-0% {
-  transform: translateY(-10px);
-  opacity: 0;
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
-100% {
-  transform: translateY(0);
-  opacity: 1;
+
+/* Style for the forgot password link */
+.forgot-password {
+  text-align: center;
+  margin-top: 15px;
 }
+
+.forgot-password-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
 }
