@@ -5,12 +5,14 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AdminGuard } from './admin-dashboard/admin.guard';
+import { UserGuard } from '../user.guard'; 
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin-dashboard', component: AdminDashboardComponent },
-  { path: 'user-dashboard', component: UserDashboardComponent },
+  { path: 'admin-dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] }, // Protect the admin route
+  { path: 'user-dashboard', component: UserDashboardComponent, canActivate: [UserGuard] }, // Protect the user route
   { path: 'signup', loadComponent: () => import('./signup/signup.component').then(m => m.SignupComponent) },
   { path: 'reset-password', component: ResetPasswordComponent },
 ];
