@@ -6,7 +6,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 import { HomepageComponent } from './homepage/homepage.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { AdminGuard } from './admin-dashboard/admin.guard';
-import { UserGuard } from '../user.guard'; 
+import { UserGuard } from './user-dashboard/user.guard'; 
 
 export const routes: Routes = [
   { path: '', component: HomepageComponent },
