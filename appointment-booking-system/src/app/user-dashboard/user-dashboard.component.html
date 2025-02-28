@@ -13,42 +13,59 @@
     <div *ngIf="activeTab === 'book'" class="tab-content">
       <h2>Book Appointment</h2>
       <div class="form-group">
-        <label for="service">Service:</label>
-        <select id="service" [(ngModel)]="newAppointment.service" name="service" required>
+        <label for="service">Service Type:</label>
+        <select id="service" [(ngModel)]="newAppointment.service" name="service" required class="service-select">
           <option value="">Select a service</option>
           <option value="Haircut">Haircut</option>
           <option value="Massage">Massage</option>
           <option value="Consultation">Consultation</option>
         </select>
       </div>
-      <form (submit)="bookAppointment()" class="booking-form">
-        <div class="form-group">
-          <label for="date">Date:</label>
-          <!-- Wrap FullCalendar in *ngIf to ensure it runs only in the browser -->
-          <div *ngIf="isBrowser">
-            <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+      <div class="calendar-container form-group">
+        <label>Select Date and Time:</label>
+        <!-- Wrap FullCalendar in *ngIf to ensure it runs only in the browser -->
+        <div *ngIf="isBrowser" class="calendar-wrapper">
+          <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+        </div>
+        <div class="calendar-info">
+          <h3>Color Legend</h3>
+          <ul class="legend-list">
+            <li *ngFor="let service of ['Haircut', 'Massage', 'Consultation']" class="legend-item">
+              <span class="color-dot" [style.background-color]="getServiceColor(service)"></span>
+              <span>{{ service }}</span>
+            </li>
+          </ul>
+          <div class="calendar-tip">
+            <p><i>Click on a date to book an appointment</i></p>
+            <p><i>• Available hours: 8:00 AM - 6:00 PM</i></p>
+            <p><i>• Appointments are 1 hour long</i></p>
           </div>
         </div>
-        
-        <button type="submit" class="book-btn">Book Appointment</button>
-      </form>
+      </div>
     </div>
     
     <div *ngIf="activeTab === 'appointments'" class="tab-content">
       <h2>My Appointments</h2>
       <ul class="appointment-list">
-        <li *ngFor="let appointment of appointments" class="appointment-item">
-          <span class="appointment-date">{{appointment.date | date:'medium'}}</span>
-          <span class="appointment-service">{{appointment.service}}</span>
+        <li *ngFor="let appointment of appointments" class="appointment-item" [style.border-left]="'4px solid ' + getServiceColor(appointment.service)">
+          <div class="appointment-details">
+            <div class="appointment-header">
+              <span class="appointment-service">{{ appointment.service }}</span>
+              <span class="appointment-status" [class.status-confirmed]="appointment.status === 'confirmed'">
+                {{ appointment.status }}
+              </span>
+            </div>
+            <span class="appointment-date">{{ formatDate(appointment.date) }}</span>
+          </div>
           <button (click)="cancelAppointment(appointment)" class="cancel-btn">Cancel</button>
         </li>
       </ul>
-      <p *ngIf="appointments.length === 0">You have no appointments.</p>
+      <p *ngIf="appointments.length === 0" class="no-appointments">You have no appointments scheduled.</p>
     </div>
     
     <div *ngIf="activeTab === 'profile'" class="tab-content">
       <h2>Profile</h2>
-      <div *ngIf="!editMode">
+      <div *ngIf="!editMode" class="profile-view">
         <p class="profile-label">Name: <span class="profile-value">{{user.name}}</span></p>
         <p class="profile-label">Email: <span class="profile-value">{{user.email}}</span></p>
         <p class="profile-label">Phone: <span class="profile-value">{{user.phone}}</span></p>
@@ -56,7 +73,7 @@
         <button (click)="editProfile()" class="edit-profile-btn">Edit Profile</button>
       </div>
 
-      <div *ngIf="editMode">
+      <div *ngIf="editMode" class="profile-edit">
         <div class="form-group">
           <label for="name">Name:</label>
           <input type="text" id="name" [(ngModel)]="editedUser.name" placeholder="Enter Your Name">
@@ -73,13 +90,17 @@
           <label for="address">Address:</label>
           <input type="text" id="address" [(ngModel)]="editedUser.address" placeholder="Enter Your Address">
         </div>
-        <button (click)="saveProfile()">Save</button>
-        <button (click)="cancelEdit()">Cancel</button>
+        <div class="button-group">
+          <button (click)="saveProfile()" class="save-btn">Save</button>
+          <button (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+        </div>
       </div>
     </div>
   </main>
   <app-booking-popup 
     [isVisible]="isPopupVisible" 
+    [selectedDate]="selectedDate"
+    [availableTimeSlots]="availableTimeSlots"
     (bookingSubmitted)="onBookingSubmitted($event)"
     (cancel)="onPopupCancel()">
   </app-booking-popup>

@@ -1,32 +1,52 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf, ngFor, etc.
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-booking-popup',
   templateUrl: './booking-popup.component.html',
   styleUrls: ['./booking-popup.component.css'],
-  standalone: true, // Mark the component as standalone
-  imports: [FormsModule, CommonModule] // Add FormsModule and CommonModule
+  standalone: true,
+  imports: [FormsModule, CommonModule]
 })
-export class BookingPopupComponent {
+export class BookingPopupComponent implements OnChanges {
   @Input() isVisible: boolean = false;
+  @Input() selectedDate: string = '';
+  @Input() availableTimeSlots: string[] = [];
+  
   @Output() bookingSubmitted = new EventEmitter<any>();
   @Output() cancel = new EventEmitter<void>();
-
+  
   booking: any = {
     title: '',
     date: '',
-    time: ''
+    time: '',
+    service: ''
   };
-
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    // Update the booking date when selectedDate changes
+    if (changes['selectedDate'] && this.selectedDate) {
+      this.booking.date = this.selectedDate;
+    }
+  }
+  
   onSubmit() {
     this.bookingSubmitted.emit(this.booking);
-    this.isVisible = false;
+    this.resetForm();
   }
-
+  
   onCancel() {
     this.cancel.emit();
-    this.isVisible = false;
+    this.resetForm();
+  }
+  
+  private resetForm() {
+    this.booking = {
+      title: '',
+      date: '',
+      time: '',
+      service: ''
+    };
   }
 }
