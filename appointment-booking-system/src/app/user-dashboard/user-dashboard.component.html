@@ -49,11 +49,11 @@
     <div *ngIf="activeTab === 'profile'" class="tab-content">
       <h2>Profile</h2>
       <div *ngIf="!editMode">
-        <p style="color: red; font-weight: bold;">Name: <span style="color: black;">{{user.name}}</span></p>
-        <p style="color: red;font-weight: bold;">Email: <span style="color: black;">{{user.email}}</span></p>
-        <p style="color: red;font-weight: bold;">Phone: <span style="color: black;">{{user.phone}}</span></p>
-        <p style="color: red;font-weight: bold;">Address: <span style="color: black;">{{user.address}}</span></p>
-        <button (click)="editProfile()" style="color: black; font-weight: bold;">Edit Profile</button>
+        <p class="profile-label">Name: <span class="profile-value">{{user.name}}</span></p>
+        <p class="profile-label">Email: <span class="profile-value">{{user.email}}</span></p>
+        <p class="profile-label">Phone: <span class="profile-value">{{user.phone}}</span></p>
+        <p class="profile-label">Address: <span class="profile-value">{{user.address}}</span></p>
+        <button (click)="editProfile()" class="edit-profile-btn">Edit Profile</button>
       </div>
 
       <div *ngIf="editMode">

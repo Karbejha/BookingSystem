@@ -184,3 +184,17 @@ button:nth-child(3) {
   background-color: #e74c3c;
   color: white;
 }
+
+.profile-label {
+  color: red;
+  font-weight: bold;
+}
+
+.profile-value {
+  color: black;
+}
+
+.edit-profile-btn {
+  color: black;
+  font-weight: bold;
+}
