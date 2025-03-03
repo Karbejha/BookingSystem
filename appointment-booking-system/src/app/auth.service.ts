@@ -61,6 +61,7 @@ export class AuthService {
         // Store user session details
         this.setInStorage('userSession', JSON.stringify({
           username: response.userName,
+          fullName: response.fullName,
           isAuthenticated: true,
           isAdmin: isAdmin,
           userId: response.userID,
@@ -137,13 +138,13 @@ export class AuthService {
     return storedSession ? JSON.parse(storedSession).isAdmin : false;
   }
 
-  private setInStorage(key: string, value: string): void {
+  public setInStorage(key: string, value: string): void {
     if (this.isBrowser) {
       localStorage.setItem(key, value);
     }
   }
 
-  private getFromStorage(key: string): string | null {
+  public getFromStorage(key: string): string | null {
     if (this.isBrowser) {
       return localStorage.getItem(key);
     }
@@ -159,6 +160,11 @@ export class AuthService {
   getStoredUsername(): string {
     const userSession = this.getFromStorage('userSession');
     return userSession ? JSON.parse(userSession).username : '';
+  }
+
+  getStoredFullName(): string {
+    const userSession = this.getFromStorage('userSession');
+    return userSession ? JSON.parse(userSession).fullName : '';
   }
 
   getStoredUserID(): number {

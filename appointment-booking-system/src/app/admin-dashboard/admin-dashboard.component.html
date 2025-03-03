@@ -35,7 +35,7 @@
       </div>
       <div class="user-menu">
         <img src="admin2.png" alt="Admin Avatar">
-        <span>Admin Name</span>
+        <span>{{adminName}}</span>
         <button type="button" (click)="logout()">
           <i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout
         </button>
@@ -77,7 +77,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let user of users">
-              <td>{{user.name}}</td>
+              <td class="full-name">{{user.fullName}}</td>
               <td>{{user.email}}</td>
               <td>{{user.joinedDate}}</td>
               <td>
